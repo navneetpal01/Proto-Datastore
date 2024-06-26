@@ -81,14 +81,6 @@ class MainActivity : ComponentActivity() {
         dataStore.updateData {
             it.copy(
                 language = language,
-                knownLocations = it.knownLocations.mutate {
-                    it.add(
-                        Location(
-                            15.0,
-                            15.0
-                        )
-                    )
-                }
             )
         }
     }
