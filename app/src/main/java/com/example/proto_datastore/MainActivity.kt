@@ -7,7 +7,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.datastore.dataStore
 import com.example.proto_datastore.ui.theme.ProtoDatastoreTheme
 import kotlinx.collections.immutable.mutate
@@ -33,8 +37,13 @@ class MainActivity : ComponentActivity() {
                 val appSettings = dataStore.data.collectAsState(
                     initial = AppSettings()
                 ).value
+                val scope = rememberCoroutineScope()
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ){
 
-
+                }
             }
         }
 
