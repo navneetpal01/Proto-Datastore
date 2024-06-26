@@ -1,14 +1,16 @@
 package com.example.proto_datastore
 
+
 import androidx.datastore.core.Serializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-
 //Point - A input stream always returns bytes
+//Point - Input stream reads and output stream writes
 
+@Suppress("BlockingMethodInNonBlockingContext")
 object AppSettingsSerializer : Serializer<AppSettings> {
     override val defaultValue: AppSettings
         get() = AppSettings()
@@ -19,7 +21,7 @@ object AppSettingsSerializer : Serializer<AppSettings> {
                 deserializer = AppSettings.serializer(),  // plugin generated this function
                 string = input.readBytes().decodeToString()
             )
-        }catch (e : SerializationException){
+        } catch (e: SerializationException) {
             e.printStackTrace()
             defaultValue
         }
@@ -27,9 +29,10 @@ object AppSettingsSerializer : Serializer<AppSettings> {
 
     override suspend fun writeTo(t: AppSettings, output: OutputStream) {
         output.write(
-
+            Json.encodeToString(
+                serializer = AppSettings.serializer(),
+                value = t
+            ).encodeToByteArray()
         )
     }
-
-
 }
